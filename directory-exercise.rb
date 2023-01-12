@@ -8,6 +8,10 @@ def print_menu
   puts "9. Exit" 
 end
 
+def import_student(store, data)
+    store << data
+end    
+
 def input_students
     puts "Please enter the names of the students"
     puts "To finish, just hit return twice"
@@ -15,10 +19,10 @@ def input_students
     name = STDIN.gets.chomp
 
     while !name.empty?
-        @students << {name: name, cohort: :november}
+        # @students << {name: name, cohort: :november}
+        import_student(@students,{name: name, cohort: :november})
         puts "Now we have #{@students.count} students"
-
-        name = gets.chomp
+        name = STDIN.gets.chomp
     end
 end
 
@@ -43,23 +47,6 @@ def show_students
   print_footer
 end
 
-def process(selection)
-  case selection
-    when "1"
-      input_students
-    when "2"
-      show_students
-    when "3"
-      save_students  
-    when "4"
-      load_students  
-    when "9"
-      exit
-    else
-      puts "I don't know what you mean, try again"
-  end
-end
-
 def save_students
   # open the file for writing
   file = File.open("students.csv", "w")
@@ -76,7 +63,8 @@ def load_students(filename = "students.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
     name, cohort = line.chomp.split(',')
-    @students << {name: name, cohort: cohort.to_sym}
+    # @students << {name: name, cohort: cohort.to_sym}
+    import_student(@students,{name: name, cohort: cohort.to_sym})
   end
   file.close
 end
@@ -93,6 +81,23 @@ def try_load_students
     exit 
   end
 end
+
+def process(selection)
+    case selection
+      when "1"
+        input_students
+      when "2"
+        show_students
+      when "3"
+        save_students  
+      when "4"
+        load_students  
+      when "9"
+        exit
+      else
+        puts "I don't know what you mean, try again"
+    end
+  end
 
 def interactive_menu
   loop do
