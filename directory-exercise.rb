@@ -33,7 +33,9 @@ end
   
 def print_students_list
   @students.each_with_index do |student,index|
-    puts "#{index+1}. #{student[:name]} (#{student[:cohort]} cohort)"
+    if student[:name][0].upcase == 'T' && student[:name].length < 12 # only show name begins with 'T' and shorter than 12 characters
+      puts "#{index+1}. #{student[:name]} (#{student[:cohort]} cohort)"
+    end  
   end
 end
   
