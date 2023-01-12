@@ -20,7 +20,7 @@ def input_students
 
     while !name.empty?
         # @students << {name: name, cohort: :november}
-        import_student(@students,{name: name, cohort: :november})
+        import_student(@students,{name: name, cohort: :november, country: :unknow})
         puts "Now we have #{@students.count} students"
         name = STDIN.gets.chomp
     end
@@ -39,7 +39,7 @@ def print_students_list
   # end
   count = @students.length
   while count > 0
-    puts "#{@students[count-1][:name]} (#{@students[count-1][:cohort]} cohort)"
+    puts "#{@students[count-1][:name]} (#{@students[count-1][:cohort]} cohort) #{@students[count-1][:country]}"
     count -= 1
   end  
 end
@@ -56,22 +56,22 @@ end
 
 def save_students
   # open the file for writing
-  file = File.open("students.csv", "w")
+  file = File.open("students-exercise.csv", "w")
 
   @students.each do |student|
-    student_data = [student[:name], student[:cohort]]
+    student_data = [student[:name], student[:cohort], student[:country]]
     csv_line = student_data.join(",")
     file.puts csv_line
   end
   file.close
 end
 
-def load_students(filename = "students.csv")
+def load_students(filename = "students-exercise.csv")
   file = File.open(filename, "r")
   file.readlines.each do |line|
-    name, cohort = line.chomp.split(',')
+    name, cohort, country = line.chomp.split(',')
     # @students << {name: name, cohort: cohort.to_sym}
-    import_student(@students,{name: name, cohort: cohort.to_sym})
+    import_student(@students,{name: name, cohort: cohort.to_sym, country: country.to_sym})
   end
   file.close
 end
