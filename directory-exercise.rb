@@ -39,9 +39,9 @@ def print_students_list
   # end
   count = @students.length
   while count > 0
-    puts "#{@students[count-1][:name]} (#{@students[count-1][:cohort]} cohort) #{@students[count-1][:country]}"
+    puts "#{@students[count-1][:name]} (#{@students[count-1][:cohort]} cohort) #{@students[count-1][:country]}".center(50)
     count -= 1
-  end  
+  end 
 end
   
 def print_footer
