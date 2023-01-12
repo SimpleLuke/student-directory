@@ -32,11 +32,16 @@ def print_header
 end
   
 def print_students_list
-  @students.each_with_index do |student,index|
-    if student[:name][0].upcase == 'T' && student[:name].length < 12 # only show name begins with 'T' and shorter than 12 characters
-      puts "#{index+1}. #{student[:name]} (#{student[:cohort]} cohort)"
-    end  
-  end
+  # @students.each_with_index do |student,index|
+  #   if student[:name][0].upcase == 'T' && student[:name].length < 12 # only show name begins with 'T' and shorter than 12 characters
+  #     puts "#{index+1}. #{student[:name]} (#{student[:cohort]} cohort)"
+  #   end  
+  # end
+  count = @students.length
+  while count > 0
+    puts "#{@students[count-1][:name]} (#{@students[count-1][:cohort]} cohort)"
+    count -= 1
+  end  
 end
   
 def print_footer
